@@ -12,9 +12,10 @@ app.get('/api/test', (req, res) => {
     res.json({lala : 'lala'});
 })
 
+app.use(express.static(__dirname + '/dist/test-one'));
+
 app.get('/*', function(req, res) {
-    res.sendFile('index.html', {root: 'dist/test-one'}
-  );
+    res.sendFile(path.join(__dirname+'/dist/test-one/index.html'));
 });
   
 const port = process.env.PORT || 5000;
