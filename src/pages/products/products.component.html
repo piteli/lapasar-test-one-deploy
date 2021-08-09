@@ -1,0 +1,63 @@
+<div *ngIf="mode === 'list'">
+<mat-card *ngFor="let item of productsData">
+      <img mat-card-lg-image 
+        [src]="item.images.length > 0 ? getFullImageURL(item._id, item.images[0]) : '/assets/images/placeholder.png'"
+        onerror="this.onerror=null;this.src='/assets/images/placeholder.png';"
+      />
+      <mat-card-title>
+        {{item.name}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        RM {{item.price | convertToPrice}}
+      </mat-card-subtitle>
+      <mat-card-content>
+        <div class="add-quantity">
+          <button (click)="removeQuantity(item._id)" mat-raised-button color="accent" aria-label="add-icon-here">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <input [value]="item.quantity" readonly />
+          <button (click)="addQuantity(item._id)" mat-raised-button color="accent" aria-label="add-icon-here">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <br />
+        <button mat-raised-button color="accent" aria-label="add-icon-here" (click)="addToCart(item)">
+          Add To Cart <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </mat-card-content>
+  </mat-card>
+</div>
+
+  <mat-grid-list *ngIf="mode === 'grid'" cols="2">
+    <mat-grid-tile *ngFor="let item of productsData">
+      <mat-card>
+        <img mat-card-lg-image 
+          [src]="item.images.length > 0 ? getFullImageURL(item._id, item.images[0]) : '/assets/images/placeholder.png'"
+          onerror="this.onerror=null;this.src='/assets/images/placeholder.png';"
+        />
+        <mat-card-title>
+          {{item.name}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          RM {{item.price | convertToPrice}}
+        </mat-card-subtitle>
+        <mat-card-content>
+          <div class="add-quantity">
+            <button (click)="removeQuantity(item._id)" mat-raised-button color="accent" aria-label="add-icon-here">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <input [value]="item.quantity" readonly />
+            <button (click)="addQuantity(item._id)" mat-raised-button color="accent" aria-label="add-icon-here">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <br />
+          <button mat-raised-button color="accent" aria-label="add-icon-here" (click)="addToCart(item)">
+            Add To Cart <mat-icon>shopping_cart</mat-icon>
+          </button>
+        </mat-card-content>
+    </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  
+  <p *ngIf="productsData.length == 0">Products is empty!</p>
